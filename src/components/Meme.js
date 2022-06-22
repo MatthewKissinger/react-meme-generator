@@ -6,6 +6,16 @@ import { memesData } from "../memesData"
 
 export default function Meme() {
     
+    /**
+     * Challenge: 
+     * 1. Set up the text inputs to save to
+     *    the `topText` and `bottomText` state variables.
+     * 2. Replace the hard-coded text on the image with
+     *    the text being saved to state.
+     */
+    
+
+
     const [meme, setMeme] = React.useState({
         topText: "",
         bottomText: "",
@@ -27,6 +37,19 @@ export default function Meme() {
         });
     }
 
+    function handleChange(event) {
+        console.log(event.target)
+        const {name, value} = event.target
+        setMeme(prevState => {
+            return {
+                ...prevState,
+                [name]: value
+            }
+        })
+    }
+
+    console.log(meme);
+
     return (
         <main>
             <div className="form">
@@ -34,11 +57,17 @@ export default function Meme() {
                     type="text" 
                     className="form--input1"
                     placeholder="Top text"
+                    name="topText"
+                    onChange={handleChange}
+                    value={meme.topText}
                 />
                 <input 
                     type="text" 
                     className="form--input2"
                     placeholder="Bottom text"
+                    name="bottomText"
+                    onChange={handleChange}
+                    value={meme.bottomText}
                 />
                 <button 
                     className="form--button"
@@ -46,7 +75,11 @@ export default function Meme() {
                 > Get a new meme image  🖼
                 </button>
             </div>
-            <img src={meme.randomImage} className="meme--image" alt="meme"/>
+            <div className="meme">
+                <img src={meme.randomImage} className="meme--image" alt="meme"/>
+                <h2 className="meme--text top">{meme.topText}</h2>
+                <h2 className="meme--text bottom">{meme.bottomText}</h2>
+            </div>
         </main>
     )
 }
